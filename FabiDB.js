@@ -29,7 +29,7 @@ import { createGridCockpitSummaryCard, createGridCockpitView } from './utils/dia
 
 // --- Räume Importe (aus dem rooms/ Ordner) ---
 import { createEgWohnenSummaryCard, createEgBadSummaryCard, createEgWohnenView, createEgBadView } from './utils/rooms/eg-builder.js?v=77';
-import { createKellerBadSummaryCard, createKellerBadView } from './utils/rooms/keller-builder.js?v=77';
+//import { createKellerBadSummaryCard, createKellerBadView } from './utils/rooms/keller-builder.js?v=77';
 
 class FabiDBStrategy {
   static async generate(config, hass) {
