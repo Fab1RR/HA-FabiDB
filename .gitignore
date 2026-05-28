@@ -1,0 +1,8 @@
+# Node-Abhängigkeiten (falls genutzt)
+node_modules/
+.npm/
+
+# Temporäre Dateien & System-Caches
+.DS_Store
+*.log
+.thumbs/
