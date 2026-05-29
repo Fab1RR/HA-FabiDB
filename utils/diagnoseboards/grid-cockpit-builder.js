@@ -1,7 +1,7 @@
 // ====================================================================
-// Module: Grid Cockpit Builder (Tasmota bitShake SmartMeterReader)
+// Module: Grid Cockpit Builder
 // Pfad: utils/diagnoseboards/grid-cockpit-builder.js
-// Version: 1.3.0 (?v=77)
+// Version: 1.2.0 (?v=73)
 // ====================================================================
 
 export function createGridCockpitSummaryCard() {
@@ -10,7 +10,7 @@ export function createGridCockpitSummaryCard() {
     card_type: "button",
     name: "Netzanschluss & Schieflast",
     icon: "mdi:transmission-tower",
-    entity: "sensor.bitshake_smartmeterreader_sml_watt_summe",
+    entity: "sensor.power_meter_consumption",
     show_state: true,
     button_action: {
       action: "navigate",
@@ -33,37 +33,27 @@ export function createGridCockpitView() {
           {
             type: "custom:bubble-card",
             card_type: "separator",
-            name: "Netz-Last & Schieflast (Live)",
+            name: "Phasen-Überwachung (Live)",
             icon: "mdi:flash"
           },
           {
             type: "history-graph",
-            title: "Leistung je Phase (W) - Schieflast-Kontrolle",
+            title: "Stromstärke je Phase (A)",
             hours_to_show: 4,
             refresh_interval: 10,
             entities: [
-              { entity: "sensor.bitshake_smartmeterreader_sml_watt_l1", name: "Phase L1", color: "#ff5252" },
-              { entity: "sensor.bitshake_smartmeterreader_sml_watt_l2", name: "Phase L2", color: "#4caf50" },
-              { entity: "sensor.bitshake_smartmeterreader_sml_watt_l3", name: "Phase L3", color: "#2196f3" }
+              "sensor.power_meter_current_l1",
+              "sensor.power_meter_current_l2",
+              "sensor.power_meter_current_l3"
             ]
           },
           {
             type: "history-graph",
-            title: "Gesamt-Netzleistung (W) - Bezug & Einspeisung",
+            title: "Netz-Leistungverlauf (kW)",
             hours_to_show: 24,
             entities: [
-              { entity: "sensor.bitshake_smartmeterreader_sml_watt_summe", name: "Gesamtleistung", color: "#ff9800" }
+              "sensor.power_meter_active_power"
             ]
-          },
-          {
-             type: "grid",
-             columns: 3,
-             square: false,
-             cards: [
-               { type: "tile", entity: "sensor.bitshake_smartmeterreader_sml_volt_l1", name: "Volt L1", icon: "mdi:sine-wave" },
-               { type: "tile", entity: "sensor.bitshake_smartmeterreader_sml_volt_l2", name: "Volt L2", icon: "mdi:sine-wave" },
-               { type: "tile", entity: "sensor.bitshake_smartmeterreader_sml_volt_l3", name: "Volt L3", icon: "mdi:sine-wave" }
-             ]
           }
         ]
       },
@@ -87,16 +77,22 @@ export function createGridCockpitView() {
             filter: {
               include: [
                 {
+                  domain: "sensor",
                   label: "grossverbraucher",
                   state: "> 0.5",
-                  type: "custom:bubble-card",
-                  card_type: "button",
-                  show_state: true
+                  options: {
+                    type: "custom:bubble-card",
+                    card_type: "button",
+                    show_state: true
+                  }
                 }
               ],
               exclude: [
                 {
                   state: "unavailable"
+                },
+                {
+                  state: "unknown"
                 }
               ]
             },
@@ -108,21 +104,6 @@ export function createGridCockpitView() {
               icon: "mdi:leaf",
               color: "green"
             }
-          },
-          {
-            type: "custom:bubble-card",
-            card_type: "separator",
-            name: "Netz-Tagesbilanz",
-            icon: "mdi:scale-balance"
-          },
-          {
-             type: "grid",
-             columns: 2,
-             square: false,
-             cards: [
-               { type: "tile", entity: "sensor.bitshake_smartmeterreader_netz_verbrauch_heute", name: "Verbrauch Heute", icon: "mdi:arrow-down-bold", color: "red" },
-               { type: "tile", entity: "sensor.bitshake_smartmeterreader_netz_einspeizung_heute", name: "Einspeisung Heute", icon: "mdi:arrow-up-bold", color: "green" }
-             ]
           }
         ]
       }
