@@ -1,12 +1,10 @@
 // ====================================================================
 // TOOLS BUILDER (Hausmodus Select & Werkzeuge)
 // Pfad: utils/tools-builder.js
-// Version: 1.2.6 (?v=78)
+// Version: 1.2.7 (?v=79)
 // ====================================================================
 
 export function createHouseModeCard() {
-  // Mushroom Select Card für direkte Inline-Auswahl ohne Pop-up.
-  // Passt sich durch das runde Design optimal an die Bubble Cards an.
   return {
     type: "custom:mushroom-select-card",
     entity: "input_select.hausmodus",
@@ -18,13 +16,13 @@ export function createHouseModeCard() {
 }
 
 export function createToolsSummaryCard() {
-  // KORREKTUR: tap_action statt button_action, damit das Pop-up lädt!
+  // WICHTIG: Bubble Cards nutzen strikt "button_action", niemals "tap_action".
   return {
     type: "custom:bubble-card",
     card_type: "button",
     name: "Tools & Skripte",
     icon: "mdi:toolbox",
-    tap_action: { 
+    button_action: { 
       action: "navigate", 
       navigation_path: "#tools-popup" 
     }
@@ -65,7 +63,17 @@ export function createToolsPopup() {
               options: { 
                 type: "custom:bubble-card", 
                 card_type: "button",
-                tap_action: {  // KORREKTUR: Verhindert den .turn_off Fehler bei Auto-Entities
+                button_action: {  // KORREKTUR: Ebenfalls button_action für das Pop-up!
+                  action: "more-info"
+                }
+              } 
+            },
+            { 
+              label: "tools", // Fallback, falls das Label in HA "tools" heißt
+              options: { 
+                type: "custom:bubble-card", 
+                card_type: "button",
+                button_action: {
                   action: "more-info"
                 }
               } 
