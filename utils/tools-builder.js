@@ -1,31 +1,34 @@
 // ====================================================================
-// TOOLS BUILDER (Hausmodus Original & Werkzeuge Fix)
+// TOOLS BUILDER (Hausmodus & Werkzeuge - Bubble Card Redesign)
 // Pfad: utils/tools-builder.js
-// Version: 1.2.4 (?v=76)
+// Version: 1.2.5 (?v=77)
 // ====================================================================
 
 export function createHouseModeCard() {
-  // Unverändert gelassen wie im Original
+  // Umstellung auf Bubble Card für einheitliches, rundes Design
   return {
-    type: "tile",
+    type: "custom:bubble-card",
+    card_type: "button",
     entity: "input_select.hausmodus",
-    vertical: false,
-    features_position: "bottom"
+    name: "Hausmodus",
+    icon: "mdi:home-automation",
+    show_state: true,
+    button_action: {
+      action: "more-info" // Öffnet den nativen Auswahldialog von HA
+    }
   };
 }
 
 export function createToolsSummaryCard() {
-  // Das Jinja2-Template wurde repariert, sodass die Variable 'tools' korrekt innerhalb des logischen Blocks ausgegeben wird
-  const countTemplate = "{% set ignored = label_entities('no_dboard') + label_entities('no-dboard') %}{% set tools = label_entities('tool') | reject('in', ignored) | list | count %}{{ tools }} aktiv";
-  
+  // Umstellung auf Bubble Card. 
+  // Hinweis: Das Jinja-Template für den Zähler wurde entfernt, 
+  // da Bubble Card dies nicht nativ als Untertitel unterstützt.
   return {
-    type: "custom:mushroom-template-card",
-    primary: "Tools",
-    secondary: countTemplate,
+    type: "custom:bubble-card",
+    card_type: "button",
+    name: "Tools & Skripte",
     icon: "mdi:toolbox",
-    icon_color: "blue",
-    layout: "horizontal",
-    tap_action: { 
+    button_action: { 
       action: "navigate", 
       navigation_path: "#tools-popup" 
     }
@@ -33,6 +36,7 @@ export function createToolsSummaryCard() {
 }
 
 export function createToolsPopup() {
+  // Entspricht bereits dem Bubble Card v3.2+ Standard (kein vertical-stack)
   return {
     type: "custom:bubble-card",
     card_type: "pop-up",
