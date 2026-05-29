@@ -1,7 +1,7 @@
 // ====================================================================
 // Module: Grid Cockpit Builder
 // Pfad: utils/diagnoseboards/grid-cockpit-builder.js
-// Version: 1.2.0 (?v=73)
+// Version: 1.4.0 (?v=75)
 // ====================================================================
 
 export function createGridCockpitSummaryCard() {
@@ -10,12 +10,19 @@ export function createGridCockpitSummaryCard() {
     card_type: "button",
     name: "Netzanschluss & Schieflast",
     icon: "mdi:transmission-tower",
-    entity: "sensor.power_meter_consumption",
+    entity: "sensor.power_meter_active_power",
     show_state: true,
     button_action: {
       action: "navigate",
       navigation_path: "grid-cockpit"
-    }
+    },
+    sub_button: [
+      {
+        entity: "sensor.power_meter_consumption",
+        show_state: true,
+        icon: "mdi:counter"
+      }
+    ]
   };
 }
 
@@ -26,14 +33,14 @@ export function createGridCockpitView() {
     icon: "mdi:chart-timeline-variant",
     type: "sections",
     max_columns: 2,
-    cards: [
+    sections: [
       {
-        type: "vertical-stack",
+        title: "Phasen-Überwachung",
         cards: [
           {
             type: "custom:bubble-card",
             card_type: "separator",
-            name: "Phasen-Überwachung (Live)",
+            name: "Live-Messwerte",
             icon: "mdi:flash"
           },
           {
@@ -58,7 +65,7 @@ export function createGridCockpitView() {
         ]
       },
       {
-        type: "vertical-stack",
+        title: "Verbraucher-Analyse",
         cards: [
           {
             type: "custom:bubble-card",
@@ -88,12 +95,8 @@ export function createGridCockpitView() {
                 }
               ],
               exclude: [
-                {
-                  state: "unavailable"
-                },
-                {
-                  state: "unknown"
-                }
+                { state: "unavailable" },
+                { state: "unknown" }
               ]
             },
             show_empty: true,
