@@ -1,39 +1,37 @@
 // ====================================================================
-// FabiDB.js - v77 (Zentraler Dashboard-Architekt - Standalone Popups & Fixes)
+// FabiDB.js - v78 (Zentraler Dashboard-Architekt - Select & Tap Fix)
 // Pfad: FabiDB.js
-// Version: 1.0.77 (?v=77)
+// Version: 1.0.78 (?v=78)
 // ====================================================================
 
 // --- Core & Tools ---
-import { createLabelBadges } from './utils/badge-builder.js?v=77';
-import { createHouseModeCard, createToolsSummaryCard, createToolsPopup } from './utils/tools-builder.js?v=77'; 
+import { createLabelBadges } from './utils/badge-builder.js?v=78';
+import { createHouseModeCard, createToolsSummaryCard, createToolsPopup } from './utils/tools-builder.js?v=78'; 
 
 // --- SYSTEMS (Gewerke aus dem systems/ Ordner) ---
-import { createLightsSummaryCard, createLightsPopup } from './utils/systems/lights-builder.js?v=77';
-import { createCoversSummaryCard, createCoversPopup } from './utils/systems/covers-builder.js?v=77';
-import { createSecuritySummaryCard, createSecurityPopup } from './utils/systems/security-builder.js?v=77';
-import { createBatteriesSummaryCard, createBatteriesPopup } from './utils/systems/batteries-builder.js?v=77';
-import { createMediaSummaryCard, createMediaView } from './utils/systems/media-builder.js?v=77';
-import { createMotionSummaryCard, createMotionView } from './utils/systems/motion-builder.js?v=77'; 
+import { createLightsSummaryCard, createLightsPopup } from './utils/systems/lights-builder.js?v=78';
+import { createCoversSummaryCard, createCoversPopup } from './utils/systems/covers-builder.js?v=78';
+import { createSecuritySummaryCard, createSecurityPopup } from './utils/systems/security-builder.js?v=78';
+import { createBatteriesSummaryCard, createBatteriesPopup } from './utils/systems/batteries-builder.js?v=78';
+import { createMediaSummaryCard, createMediaView } from './utils/systems/media-builder.js?v=78';
+import { createMotionSummaryCard, createMotionView } from './utils/systems/motion-builder.js?v=78'; 
 
-// Die korrekte, modulare Trennung laut Ordnerstruktur:
-import { createHeaterSummaryCard, createHeaterView } from './utils/systems/heater-builder.js?v=77'; 
-import { createHeatingSummaryCard, createHeatingView } from './utils/systems/heating-builder.js?v=77'; 
+import { createHeaterSummaryCard, createHeaterView } from './utils/systems/heater-builder.js?v=78'; 
+import { createHeatingSummaryCard, createHeatingView } from './utils/systems/heating-builder.js?v=78'; 
 
 // --- Diagnoseboards (aus dem diagnoseboards/ Ordner) ---
-import { createWpCockpitSummaryCard, createWpCockpitView } from './utils/diagnoseboards/wp-cockpit-builder.js?v=77';
-import { createTankCockpitSummaryCard, createTankCockpitView } from './utils/diagnoseboards/tank-cockpit-builder.js?v=77';
-import { createSolarCockpitSummaryCard, createSolarCockpitView } from './utils/diagnoseboards/solar-cockpit-builder.js?v=77';
-import { createPvCockpitSummaryCard, createPvCockpitView } from './utils/diagnoseboards/pv-cockpit-builder.js?v=77';
-// HIER: Version v75 erzwingen für das korrigierte Netzanschluss-Board
-import { createGridCockpitSummaryCard, createGridCockpitView } from './utils/diagnoseboards/grid-cockpit-builder.js?v=75'; 
+import { createWpCockpitSummaryCard, createWpCockpitView } from './utils/diagnoseboards/wp-cockpit-builder.js?v=78';
+import { createTankCockpitSummaryCard, createTankCockpitView } from './utils/diagnoseboards/tank-cockpit-builder.js?v=78';
+import { createSolarCockpitSummaryCard, createSolarCockpitView } from './utils/diagnoseboards/solar-cockpit-builder.js?v=78';
+import { createPvCockpitSummaryCard, createPvCockpitView } from './utils/diagnoseboards/pv-cockpit-builder.js?v=78';
+import { createGridCockpitSummaryCard, createGridCockpitView } from './utils/diagnoseboards/grid-cockpit-builder.js?v=78'; 
 
 // --- Räume Importe (aus dem rooms/ Ordner) ---
-import { createEgWohnenSummaryCard, createEgBadSummaryCard, createEgWohnenView, createEgBadView } from './utils/rooms/eg-builder.js?v=77';
+import { createEgWohnenSummaryCard, createEgBadSummaryCard, createEgWohnenView, createEgBadView } from './utils/rooms/eg-builder.js?v=78';
 
 class FabiDBStrategy {
   static async generate(config, hass) {
-    console.log("🚀 FabiDB (v77 - Active Power Alignment) startet!");
+    console.log("🚀 FabiDB (v78 - Select & Tap Fix) startet!");
 
     const myBadges = createLabelBadges(hass);
     const lightsPopup = createLightsPopup();

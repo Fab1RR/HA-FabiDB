@@ -1,34 +1,30 @@
 // ====================================================================
-// TOOLS BUILDER (Hausmodus & Werkzeuge - Bubble Card Redesign)
+// TOOLS BUILDER (Hausmodus Select & Werkzeuge)
 // Pfad: utils/tools-builder.js
-// Version: 1.2.5 (?v=77)
+// Version: 1.2.6 (?v=78)
 // ====================================================================
 
 export function createHouseModeCard() {
-  // Umstellung auf Bubble Card für einheitliches, rundes Design
+  // Mushroom Select Card für direkte Inline-Auswahl ohne Pop-up.
+  // Passt sich durch das runde Design optimal an die Bubble Cards an.
   return {
-    type: "custom:bubble-card",
-    card_type: "button",
+    type: "custom:mushroom-select-card",
     entity: "input_select.hausmodus",
     name: "Hausmodus",
     icon: "mdi:home-automation",
-    show_state: true,
-    button_action: {
-      action: "more-info" // Öffnet den nativen Auswahldialog von HA
-    }
+    icon_color: "indigo",
+    layout: "horizontal"
   };
 }
 
 export function createToolsSummaryCard() {
-  // Umstellung auf Bubble Card. 
-  // Hinweis: Das Jinja-Template für den Zähler wurde entfernt, 
-  // da Bubble Card dies nicht nativ als Untertitel unterstützt.
+  // KORREKTUR: tap_action statt button_action, damit das Pop-up lädt!
   return {
     type: "custom:bubble-card",
     card_type: "button",
     name: "Tools & Skripte",
     icon: "mdi:toolbox",
-    button_action: { 
+    tap_action: { 
       action: "navigate", 
       navigation_path: "#tools-popup" 
     }
@@ -36,7 +32,6 @@ export function createToolsSummaryCard() {
 }
 
 export function createToolsPopup() {
-  // Entspricht bereits dem Bubble Card v3.2+ Standard (kein vertical-stack)
   return {
     type: "custom:bubble-card",
     card_type: "pop-up",
@@ -70,7 +65,7 @@ export function createToolsPopup() {
               options: { 
                 type: "custom:bubble-card", 
                 card_type: "button",
-                button_action: {
+                tap_action: {  // KORREKTUR: Verhindert den .turn_off Fehler bei Auto-Entities
                   action: "more-info"
                 }
               } 
